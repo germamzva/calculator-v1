@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div
+        class="flex flex-col justify-center w-3/12 m-auto"
+        style="height: 100vh"
+      >
+        <div class="flex border-2 border-b-0">
+          <input type="hidden" name="inputOld" id="inputOld" />
+          <input type="hidden" name="inputOptr" id="inputOptr" />
+          <input
+            type="text"
+            id="inputNew"
+            placeholder="0"
+            class="text-lg w-full border-2 p-2 text-center border-b-0"
+          />
+        </div>
+        <div class="flex justify-between border-2 border-b-0">
+          <button class="w-full p-3 border-2 border-b-0" id="number" value="1">
+            1
+          </button>
+          <button class="w-full p-3 border-2 border-b-0" id="number" value="2">
+            2
+          </button>
+          <button class="w-full p-3 border-2 border-b-0" id="number" value="3">
+            3
+          </button>
+          <button
+            class="w-full p-3 bg-blue-600 border-2 text-white border-b-0"
+            id="operator"
+            value="+"
+          >
+            Add
+          </button>
+        </div>
+        <div class="flex justify-between border-2 border-b-0">
+          <button class="w-full p-3 border-2 border-b-0" id="number" value="4">
+            4
+          </button>
+          <button class="w-full p-3 border-2 border-b-0" id="number" value="5">
+            5
+          </button>
+          <button class="w-full p-3 border-2 border-b-0" id="number" value="6">
+            6
+          </button>
+          <button
+            class="w-full p-3 bg-slate-600 border-2 text-white border-b-0"
+            id="operator"
+            value="-"
+          >
+            Sub
+          </button>
+        </div>
+        <div class="flex justify-between border-2 border-b-0">
+          <button class="w-full p-3 border-2 border-b-0" id="number" value="7">
+            7
+          </button>
+          <button class="w-full p-3 border-2 border-b-0" id="number" value="8">
+            8
+          </button>
+          <button class="w-full p-3 border-2 border-b-0" id="number" value="9">
+            9
+          </button>
+          <button
+            class="w-full p-3 bg-red-600 border-2 text-white border-b-0"
+            id="operator"
+            value="*"
+          >
+            Mul
+          </button>
+        </div>
+        <div class="flex justify-between border-2">
+          <button class="w-full p-3 border-2 border-b-0" id="number" value="0">
+            0
+          </button>
+          <button class="w-full p-3 border-2 border-b-0" id="btnResult">
+            =
+          </button>
+          <button class="w-full p-3 border-2 border-b-0" id="reset">C</button>
+          <button
+            class="w-full p-3 border-2 border-b-0 bg-pink-600 text-white"
+            id="operator"
+            value="/"
+          >
+            Div
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function inputNumber() {
+        const numbers = document.querySelectorAll("#number");
+        numbers.forEach((number) => {
+          number.addEventListener("click", (e) => {
+            const inputNew = (document.getElementById("inputNew").value +=
+              e.target.value);
+          });
+        });
+      }
+      function btnOptr() {
+        const optrs = document.querySelectorAll("#operator");
+        const inputOptr = document.getElementById("inputOptr");
+        optrs.forEach((optr) => {
+          optr.addEventListener("click", (e) => {
+            inputOptr.value = e.target.innerText;
+            const inputNew = document.getElementById("inputNew").value;
+            const inputOld = (document.getElementById("inputOld").value =
+              inputNew);
+            document.getElementById("inputNew").value = "";
+          });
+        });
+      }
+
+      function btnResult() {
+        const result = document.getElementById("btnResult");
+        result.addEventListener("click", () => {
+          const inputNew = document.getElementById("inputNew").value;
+          const inputOld = document.getElementById("inputOld").value;
+          const result = document.getElementById("inputNew");
+          const operations = document.getElementById("inputOptr").value;
+          if (inputOld != "") {
+            switch (operations) {
+              case "Add": {
+                result.value = Number(inputOld) + Number(inputNew);
+                break;
+              }
+              case "Sub": {
+                result.value = Number(inputOld) - Number(inputNew);
+                break;
+              }
+              case "Mul": {
+                result = Number(inputOld) * Number(inputNew);
+                break;
+              }
+              case "Div": {
+                const total = Number(inputOld) / Number(inputNew);
+                result.value = total;
+                  ;
+                break;
+              }
+            }
+          }
+        });
+      }
+
+      function reset() {
+        const resetBtn = document.getElementById("reset");
+        resetBtn.addEventListener("click", () => {
+            document.getElementById("inputNew").value = "";
+            document.getElementById("inputOld").value = "";
+            document.getElementById("inputOptr").value = "";
+        })
+      }
+
+      inputNumber();
+      btnOptr();
+      btnResult();
+      reset();
+    </script>
+  </body>
+</html>
